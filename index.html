@@ -170,15 +170,30 @@
     }
     #cta h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; margin-bottom: 1rem; }
     #cta p { color: var(--muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto 2.5rem; }
-    .cta-form { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; max-width: 480px; margin: 0 auto; }
-    .cta-form input {
-      flex: 1; min-width: 220px; padding: 0.85rem 1.2rem;
-      background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    .cta-form {
+      max-width: 720px; margin: 0 auto; text-align: left;
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    }
+    .cta-form .full { grid-column: 1 / -1; }
+    .cta-form label {
+      display: block; font-size: 0.82rem; font-weight: 500; color: var(--muted); margin-bottom: 0.4rem;
+    }
+    .cta-form label .req { color: var(--accent); }
+    .cta-form input, .cta-form textarea {
+      width: 100%; padding: 0.85rem 1.1rem;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
       color: var(--text); font-size: 0.95rem; outline: none; font-family: 'Inter', sans-serif;
       transition: border-color 0.2s;
     }
-    .cta-form input:focus { border-color: var(--accent); }
-    .cta-form input::placeholder { color: var(--muted); }
+    .cta-form textarea { min-height: 110px; resize: vertical; }
+    .cta-form input:focus, .cta-form textarea:focus { border-color: var(--accent); }
+    .cta-form input::placeholder, .cta-form textarea::placeholder { color: var(--muted); }
+    .cta-form .btn-primary { width: 100%; text-align: center; border: none; cursor: pointer; font-family: 'Inter', sans-serif; }
+    .cta-form .netlify-form-error {
+      grid-column: 1 / -1; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.4);
+      color: #fca5a5; border-radius: 10px; padding: 0.85rem 1.1rem; font-size: 0.9rem; display: none;
+    }
 
     /* ── FOOTER ── */
     footer {
@@ -209,6 +224,7 @@
       .hamburger { display: flex; }
       .why-grid { grid-template-columns: 1fr; }
       .hero-stats { gap: 1.5rem; }
+      .cta-form { grid-template-columns: 1fr; padding: 1.5rem; }
     }
   </style>
   <!-- Nextdoor Pixel Code -->
@@ -240,6 +256,7 @@
       <a href="#how">How It Works</a>
       <a href="#why">Why Us</a>
       <!--<a href="#testimonials">Clients</a>-->
+      <a href="subscribe.html">Offers</a>
       <a href="#cta" class="nav-cta">Get Started</a>
     </div>
     <div class="hamburger" id="hamburger" onclick="toggleNav()">
@@ -393,10 +410,39 @@
   <section id="cta">
     <h2>Ready to ScaleOut?</h2>
     <p>Book a free 30-minute discovery call and find out exactly how we can help your business grow smarter and faster.</p>
-    <div class="cta-form">
-      <input type="email" placeholder="Enter your work email" />
-      <a href="mailto:hello@scaleout.us" class="btn-primary" style="white-space:nowrap;">Book a Call</a>
-    </div>
+    <form name="contact" method="POST" action="/thank-you" class="cta-form" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="bot-field" />
+      <input type="hidden" name="form-name" value="contact" />
+
+      <div>
+        <label for="name">Full Name <span class="req">*</span></label>
+        <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+      </div>
+      <div>
+        <label for="email">Work Email <span class="req">*</span></label>
+        <input type="email" id="email" name="email" placeholder="jane@company.com" required />
+      </div>
+      <div>
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" />
+      </div>
+      <div>
+        <label for="business">Business Name</label>
+        <input type="text" id="business" name="business" placeholder="Acme Corp" />
+      </div>
+      <div class="full">
+        <label for="title">Job Title</label>
+        <input type="text" id="title" name="job_title" placeholder="CEO, Founder, COO…" />
+      </div>
+      <div class="full">
+        <label for="goal">Your Goal</label>
+        <textarea id="goal" name="goal" placeholder="Tell us what you're trying to accomplish — cloud migration, AI integration, tech strategy, hiring, or something else."></textarea>
+      </div>
+      <div class="full">
+        <button type="submit" class="btn-primary">Request My Free Discovery Call</button>
+      </div>
+      <p class="netlify-form-error" role="alert">Something went wrong. Please try again or email us at hello@scaleout.us.</p>
+    </form>
     <p style="margin-top:1.25rem; font-size:0.82rem; color:var(--muted);">No commitment. No sales pressure. Just a real conversation.</p>
   </section>
 
@@ -431,6 +477,10 @@
   </footer>
 
   <script>
+    // Track lead conversion in Nextdoor pixel on form submit
+    document.querySelector('form[data-netlify="true"]')?.addEventListener('submit', function () {
+      if (window.ndp) { ndp('track', 'LEAD', {}); }
+    });
     function toggleNav() {
       document.getElementById('navLinks').classList.toggle('open');
     }
