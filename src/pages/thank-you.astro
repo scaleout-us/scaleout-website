@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thank You — ScaleOut LLC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #080c14;
+        --bg2: #0d1220;
+        --card: #111827;
+        --border: rgba(255,255,255,0.08);
+        --accent: #3b82f6;
+        --accent2: #6366f1;
+        --text: #f1f5f9;
+        --muted: #94a3b8;
+        --grad: linear-gradient(135deg, #3b82f6, #6366f1);
+      }
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59,130,246,0.15), transparent), var(--bg);
+        color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6;
+        min-height: 100vh; display: flex; align-items: center; justify-content: center;
+        text-align: center; padding: 2rem 6%;
+      }
+      h1, h2 { font-family: 'Space Grotesk', sans-serif; }
+      a { text-decoration: none; color: inherit; }
+      .card { max-width: 540px; }
+      .check {
+        width: 72px; height: 72px; border-radius: 50%; background: var(--grad);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 2rem; margin: 0 auto 1.75rem;
+        box-shadow: 0 0 40px rgba(59,130,246,0.4);
+      }
+      h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; margin-bottom: 1rem; }
+      p { color: var(--muted); font-size: 1.05rem; max-width: 440px; margin: 0 auto 2.25rem; }
+      .btn-primary {
+        display: inline-block; background: var(--grad); color: #fff; padding: 0.85rem 2rem;
+        border-radius: 10px; font-weight: 600; font-size: 1rem;
+        box-shadow: 0 0 30px rgba(59,130,246,0.3); transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(59,130,246,0.5); }
+      .fine { margin-top: 1.5rem; font-size: 0.82rem; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="check">✓</div>
+      <h1>Thanks — We're On It</h1>
+      <p>Your request has been received. A member of our team will reach out within one business day to schedule your free discovery call.</p>
+      <a href="/" class="btn-primary">Back to Home</a>
+      <p class="fine">Need to reach us sooner? Email <a href="mailto:hello@scaleout.us" style="color:var(--accent);">hello@scaleout.us</a></p>
+    </div>
+  </body>
+</html>

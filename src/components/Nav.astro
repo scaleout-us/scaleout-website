@@ -1,0 +1,45 @@
+---
+interface Props {
+  variant?: 'main' | 'subscribe';
+}
+const { variant = 'main' } = Astro.props;
+---
+
+{
+  variant === 'subscribe' ? (
+    <nav id="navbar">
+      <a href="/" class="nav-logo">
+        Scale<span>Out</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="/">Home</a>
+        <a href="/#services">Services</a>
+        <a href="/#how">How It Works</a>
+        <a href="#offers" class="nav-cta">See Offers</a>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  ) : (
+    <nav id="navbar">
+      <a href="/" class="nav-logo">
+        Scale<span>Out</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="/#services">Services</a>
+        <a href="/#how">How It Works</a>
+        <a href="/#why">Why Us</a>
+        <a href="/subscribe/">Offers</a>
+        <a href="/#cta" class="nav-cta">Get Started</a>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  )
+}

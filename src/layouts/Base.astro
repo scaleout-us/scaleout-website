@@ -1,0 +1,83 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  navVariant?: 'main' | 'subscribe';
+  footer?: boolean;
+}
+const { title, navVariant = 'main', footer = true } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Nextdoor Pixel Code -->
+    <script>
+      !function (e, n) {
+        var t, p;
+        e.ndp ||
+          ((t =
+            (e.ndp = function () {
+              t.handleRequest
+                ? t.handleRequest.apply(t, arguments)
+                : t.queue.push(arguments);
+            })).queue = [],
+          (t.v = 1),
+          (p = n.createElement(e = 'script')).async = !0,
+          (p.src = 'https://ads.nextdoor.com/public/pixel/ndp.js?id=012a8b02-bcf3-4808-8314-fae9e347b92a'),
+          (n = n.getElementsByTagName(e)[0]).parentNode.insertBefore(p, n));
+      }(window, document);
+
+      ndp('init', '012a8b02-bcf3-4808-8314-fae9e347b92a', {});
+      ndp('track', 'PAGE_VIEW');
+    </script>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display:none"
+        src="https://flask.nextdoor.com/pixel?pid=012a8b02-bcf3-4808-8314-fae9e347b92a&ev=PAGE_VIEW&noscript=1"
+      />
+    </noscript>
+    <!-- End Nextdoor Pixel Code -->
+  </head>
+  <body>
+    <Nav variant={navVariant} />
+    <slot />
+    {footer && <Footer />}
+    <script>
+      // Mobile nav toggle
+      document
+        .getElementById('hamburger')
+        ?.addEventListener('click', () => {
+          document.getElementById('navLinks')?.classList.toggle('open');
+        });
+      // Scroll state on nav
+      window.addEventListener('scroll', () => {
+        const nav = document.getElementById('navbar');
+        if (nav) {
+          nav.style.background =
+            window.scrollY > 40 ? 'rgba(8,12,20,0.97)' : 'rgba(8,12,20,0.8)';
+        }
+      });
+      // Smooth close nav on link click (mobile)
+      document.querySelectorAll('#navLinks a').forEach((link) => {
+        link.addEventListener('click', () =>
+          document.getElementById('navLinks')?.classList.remove('open'),
+        );
+      });
+    </script>
+  </body>
+</html>
